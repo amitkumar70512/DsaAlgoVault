@@ -1,0 +1,29 @@
+---
+title: Binary Tree Level Order Traversal
+leetcode: 102
+difficulty: Medium
+pattern: BFS
+algorithm: Queue traversal
+datastructure: Queue
+companies: [Google, Meta, Apple]
+tags: [tree, bfs, queue]
+status: Learning
+favorite: false
+confidence: 3
+revision: 2026-07-18
+lastSolved: 2026-07-10
+timeComplexity: O(n)
+spaceComplexity: O(n)
+---
+
+## Recognition
+
+Words like *level by level*, *nearest first*, or *minimum number of edges* usually point to breadth-first search.
+
+## Optimal Solution
+
+Process exactly the queue size present at the beginning of each round. Those nodes make one level.
+
+## Common Mistakes
+
+Do not loop over a changing queue length; capture the level size first.

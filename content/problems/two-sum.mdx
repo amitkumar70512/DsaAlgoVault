@@ -1,0 +1,61 @@
+---
+title: Two Sum
+leetcode: 1
+difficulty: Easy
+pattern: Hash Map
+algorithm: Complement lookup
+datastructure: Hash Map
+companies: [Amazon, Google, Meta]
+tags: [array, hash-map, interview-classic]
+status: Solved
+favorite: true
+confidence: 5
+revision: 2026-07-18
+lastSolved: 2026-07-14
+timeComplexity: O(n)
+spaceComplexity: O(n)
+resources:
+  - label: LeetCode problem
+    url: https://leetcode.com/problems/two-sum/
+---
+
+## Recognition
+
+You need two values that satisfy a target relation, and indices must be distinct. Ask whether one pass can remember what has already appeared.
+
+## Interview Trigger Words
+
+"Find a pair", "target sum", "return indices", and an unsorted array are strong hash-map signals.
+
+## Brute Force
+
+Check every pair. This is simple but costs **O(n²)** time.
+
+## Optimal Solution
+
+Walk left to right. For each `value`, look for `target - value` in a map of earlier values. If it exists, return its index with the current index; otherwise save the current value.
+
+```java
+public int[] twoSum(int[] nums, int target) {
+  Map<Integer, Integer> seen = new HashMap<>();
+  for (int i = 0; i < nums.length; i++) {
+    int need = target - nums[i];
+    if (seen.containsKey(need)) return new int[]{seen.get(need), i};
+    seen.put(nums[i], i);
+  }
+  return new int[0];
+}
+```
+
+## Complexity
+
+- Time: O(n)
+- Space: O(n)
+
+## Common Mistakes
+
+Insert after checking; otherwise a value can incorrectly pair with itself.
+
+## Interview Mantra
+
+When a pair condition becomes a complement lookup, trade nested loops for memory.
