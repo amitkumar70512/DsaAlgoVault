@@ -1,4 +1,4 @@
-# DSA Vault
+# [DSA Vault](https://amitkumar70512.github.io/DsaAlgoVault/)
 
 A static, GitHub Pages-ready personal knowledge base for DSA, interview prep, Android notes, and future technical tracks.
 
@@ -30,6 +30,6 @@ Use a workflow that runs `npm ci`, `npm run build`, and uploads the `out` direct
 
 ## Google Drive authoring
 
-Admin Mode includes **Save to Drive**. It uses a browser OAuth access token and writes each MDX note to the configured Drive folder; no download is required. The app requests the least-privileged `drive.file` scope, so it can manage notes that it creates. In Google Cloud Console, enable the Drive API and add your development URL (`http://localhost:3000`) plus your GitHub Pages origin to the OAuth client’s authorized JavaScript origins. The public client ID and folder ID are configured in `components/drive-save-button.tsx`.
+Admin Mode includes **Save to Drive**. It uses a browser OAuth access token and writes each MDX note to the configured Drive folder; no download is required. The app requests the least-privileged `drive.file` scope, so it can manage notes that it creates. In Google Cloud Console, enable the Drive API and add your development URL (`http://localhost:3000`) plus your GitHub Pages origin to the OAuth clientâ€™s authorized JavaScript origins. The public client ID and folder ID are configured in `components/drive-save-button.tsx`.
 
 Drive saves do not automatically change the already-deployed static site. Add a Drive-to-GitHub Actions sync before publishing so GitHub Pages rebuilds from the Drive folder.
