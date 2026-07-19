@@ -1,0 +1,313 @@
+---
+title: Pascal's Triangle (LC 118)
+leetcode: 118
+difficulty: Easy
+pattern: Simulation / Dynamic Programming (Build from Previous Row)
+algorithm: 
+datastructure: 
+companies: []
+tags: [dynamic-programming, array]
+status: Solved
+favorite: false
+confidence: 3
+revision: 2026-07-25
+lastSolved: 2026-07-18
+---
+
+## Recognition
+
+Look for these clues in the problem statement:
+
+Generate Pascal's Triangle
+Return first N rows
+Each element depends on previous row
+Build row by row
+Adjacent elements determine current value
+
+Whenever you see:
+
+Build current row using previous row
+
+Think:
+
+Simulation / Bottom-Up Dynamic Programming
+
+
+## Interview Trigger Words
+
+Pascal's Triangle
+Generate rows
+Previous row
+Adjacent elements
+Triangle
+Combinatorics
+
+## Brute Force
+
+Idea
+
+Use the mathematical formula:
+
+(n/r) = n! / r!(n−r)!
+	​
+
+Compute every value independently.
+
+Complexity
+
+Time: O(n³) (or worse if factorials are recomputed)
+
+Space: O(1) (excluding output)
+
+## Better Solution
+
+Compute each value using the previous value in the same row with combinations.
+
+Still involves mathematical calculations and is less intuitive.
+
+## Optimal Solution
+
+Simulation / Dynamic Programming
+
+## Core Intuition
+
+Each row starts and ends with 1.
+
+Every middle element is the sum of the two elements directly above it.
+
+        1
+      1   1
+    1   2   1
+  1   3   3   1
+1  4   6   4   1
+
+Formula:
+
+current[i] = previous[i-1] + previous[i]
+
+So instead of computing combinations, simply build each row using the previous row.
+
+## Visualization
+
+Example:
+
+numRows = 5
+
+Row 0
+
+1
+
+Row 1
+
+1 1
+
+Row 2
+
+Previous:
+1 1
+
+Current:
+1
+1+1 = 2
+1
+
+Result:
+1 2 1
+
+Row 3
+
+Previous:
+1 2 1
+
+Current:
+1
+1+2 = 3
+2+1 = 3
+1
+
+Result:
+1 3 3 1
+
+## Algorithm
+
+
+Create the answer list.
+Iterate from row 0 to numRows-1.
+Create a new list for the current row.
+For each position:
+If it is the first or last element, add 1.
+Otherwise, add the sum of the two numbers above it from the previous row.
+Add the completed row to the answer.
+Return the answer.
+
+## Dry Run
+
+Input
+
+numRows = 4
+Row 0
+[1]
+
+Answer
+
+[
+ [1]
+]
+Row 1
+
+First and last element are 1
+
+[1,1]
+
+Answer
+
+[
+ [1],
+ [1,1]
+]
+Row 2
+
+Previous row
+
+[1,1]
+
+Middle element
+
+1+1=2
+
+Current row
+
+[1,2,1]
+Row 3
+
+Previous row
+
+[1,2,1]
+
+Middle elements
+
+1+2=3
+
+2+1=3
+
+Current row
+
+[1,3,3,1]
+
+Final Answer
+
+[
+ [1],
+ [1,1],
+ [1,2,1],
+ [1,3,3,1]
+]
+
+## Complexity
+
+Time  O(numRows²)
+
+Reason:
+There are 1+2+3+...+n elements generated.
+
+Total  n(n+1)/2
+
+which is O(n²).
+
+Space O(numRows²)
+
+Since we store the entire triangle.
+
+## Common Mistakes
+
+❌ Forgetting first and last element are always 1
+Wrong
+Only compute using previous row
+
+Correct
+if(i==0 || i==row)
+    add(1);
+
+❌ Accessing previous row for first row
+For row 0, there is no previous row.
+Always handle boundary rows separately.
+
+❌ Wrong indices
+Correct:
+previous.get(i-1) + previous.get(i)
+
+Not
+previous.get(i) + previous.get(i+1)
+
+❌ Loop condition
+Correct
+for(int i=0;i<=row;i++)
+
+Each row contains exactly row + 1 elements.
+
+
+Why Does This Work?
+
+Every value (except the boundaries) depends only on the two numbers directly above it.
+Since the previous row is already computed, we can build the current row in one pass.
+This is a classic bottom-up DP idea where previously computed states are reused.
+
+## Variants
+
+Variant 1 — Pascal's Triangle II (LC 119)
+
+Return only a specific row.
+Optimize space to O(n).
+
+Variant 2 — Binomial Coefficient
+
+Compute
+nCr
+using Pascal's Triangle recurrence.
+
+Variant 3 — Combinatorics Formula
+
+Generate each row using
+nCr
+instead of previous rows.
+
+
+
+
+## Related Problems
+
+LC 118 — Pascal's Triangle
+LC 119 — Pascal's Triangle II
+Binomial Coefficient
+Combinations (LC 77)
+
+## Interview Mantra
+
+"Whenever each element depends only on values from the previous row, think of building the answer bottom-up. In Pascal's Triangle, the first and last elements are always 1, while every middle element is simply the sum of the two elements directly above it. This naturally leads to an O(n²) simulation (bottom-up DP) solution."
+
+## Notes
+
+https://leetcode.com/problems/pascals-triangle/
+
+## Code (Java)
+
+```java
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> ans = new ArrayList<>();
+        for(int row=0;row<numRows;row++){
+            ArrayList<Integer> level = new ArrayList<>();
+            for(int i = 0; i<=row; i++){
+                if(i==0||i==row){ // for 1st and 2nd row
+                    level.add(1);
+                }else{
+                    // take the sum of two element from the previous level
+                    level.add(ans.get(row-1).get(i-1) + ans.get(row-1).get(i));
+                }
+            }
+            ans.add(level);
+        }
+    return ans;
+    }
+}
+```

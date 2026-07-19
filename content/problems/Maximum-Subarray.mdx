@@ -1,0 +1,53 @@
+---
+title: Maximum Subarray (LC 53)
+leetcode: 53
+difficulty: Medium
+pattern: prefixsum
+algorithm: 
+datastructure: 
+companies: []
+tags: [array]
+status: Todo
+favorite: false
+confidence: 3
+revision: 2026-07-25
+lastSolved: 2026-07-18
+---
+
+## Recognition
+
+ Maximum continuous subarray.
+
+
+
+## Interview Trigger Words
+
+Maximum continuous subarray
+
+## Brute Force
+
+Generate all subarrays.
+
+## Better Solution
+
+Prefix sums
+
+## Optimal Solution
+
+Kadane's Algorithm.
+
+## Core Intuition
+
+Negative running sum never helps future subarrays.
+
+## Algorithm
+
+Extend while sum positive, otherwise restart.
+
+## Complexity
+
+ Time O(n), Space O(1)
+
+## Interview Mantra
+
+Carry positive sum, drop negative sum.
