@@ -42,6 +42,23 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
           GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
 
+      - name: Check secrets
+        run: |
+          if [ -z "$GOOGLE_APPLICATION_CREDENTIALS_JSON" ]; then
+            echo "GOOGLE_APPLICATION_CREDENTIALS_JSON is EMPTY"
+          else
+            echo "GOOGLE_APPLICATION_CREDENTIALS_JSON is PRESENT"
+          fi
+
+          if [ -z "$GOOGLE_DRIVE_FOLDER_ID" ]; then
+            echo "GOOGLE_DRIVE_FOLDER_ID is EMPTY"
+          else
+            echo "GOOGLE_DRIVE_FOLDER_ID is PRESENT"
+          fi
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
+        GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
+
       - name: Sync Drive
         run: npm run sync-drive
         env:
