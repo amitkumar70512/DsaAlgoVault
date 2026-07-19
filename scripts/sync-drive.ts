@@ -2,9 +2,10 @@ import fs from "fs";
 import path from "path";
 import { google } from "googleapis";
 
-// const FOLDER_ID = "1-JJjtEwOJ_FG80LYmZitw3cvFPE6Tvbn";
-const FOLDER_ID = process.env.GOOGLE_DRIVE_FOLDER_ID!;
-
+const FOLDER_ID =
+  process.env.GOOGLE_DRIVE_FOLDER_ID ??
+  "1-JJjtEwOJ_FG80LYmZitw3cvFPE6Tvbn";
+  
 const CONTENT_DIR = path.join(
   process.cwd(),
   "content",
@@ -14,10 +15,14 @@ const CONTENT_DIR = path.join(
 let credentials;
 
 if (process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON) {
+  console.log("Using GitHub Secret credentials");
+
   credentials = JSON.parse(
     process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON
   );
 } else {
+  console.log("Using local credentials");
+
   credentials = JSON.parse(
     fs.readFileSync("secrets/service-account.json", "utf8")
   );
